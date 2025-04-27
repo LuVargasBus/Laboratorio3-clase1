@@ -167,6 +167,7 @@
             // 
             // cmbCategoriaProductos
             // 
+            this.cmbCategoriaProductos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategoriaProductos.FormattingEnabled = true;
             this.cmbCategoriaProductos.Items.AddRange(new object[] {
             "Alimento",
@@ -175,9 +176,9 @@
             "Higiene y cuidado",
             "Juguetes",
             "Medicamentos"});
-            this.cmbCategoriaProductos.Location = new System.Drawing.Point(359, 94);
+            this.cmbCategoriaProductos.Location = new System.Drawing.Point(352, 94);
             this.cmbCategoriaProductos.Name = "cmbCategoriaProductos";
-            this.cmbCategoriaProductos.Size = new System.Drawing.Size(194, 24);
+            this.cmbCategoriaProductos.Size = new System.Drawing.Size(201, 24);
             this.cmbCategoriaProductos.TabIndex = 14;
             // 
             // frmCargaProductos

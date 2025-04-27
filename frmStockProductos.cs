@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.DirectoryServices.ActiveDirectory;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace pryClase1_PetShop
 {
@@ -14,15 +16,19 @@ namespace pryClase1_PetShop
     {
         private List<clsProducto> productosDisponibles;
         private List<clsProducto> productosFiltrados;
-        private clsReposicion reposicion = new clsReposicion();
 
+        private clsReposicion reposicion = new clsReposicion();
+      
        
         public frmStockActual()
         {
             InitializeComponent();
+          
             productosDisponibles = reposicion.obtenerTodosLosProductos();
             productosFiltrados = reposicion.obtenerProductoFiltrado();
             
+           
+           
 
         }
 
@@ -31,6 +37,42 @@ namespace pryClase1_PetShop
         {
             dgvStockProductos.DataSource = null;
             dgvStockProductos.DataSource = productosDisponibles;
+
+
+            clsReposicion reposicion = new clsReposicion();
+            List<clsProducto> todosLosProductos = reposicion.obtenerTodosLosProductos();
+
+
+            CargarListView();
+        }
+        private void CargarListView()
+        {
+            lstViewStock.Items.Clear();
+            lstViewStock.Columns.Clear();
+
+           
+            lstViewStock.Columns.Add("Nombre", 200);
+            lstViewStock.Columns.Add("Cantidad",70);
+
+           
+            List<clsProducto> productosConBajoStock = reposicion.controlStock(productosFiltrados);
+
+            if (productosConBajoStock != null && productosConBajoStock.Count > 0)
+            {
+                foreach (clsProducto producto in productosConBajoStock)
+                {
+                    ListViewItem item = new ListViewItem(producto.Nombre);
+                    item.SubItems.Add(producto.Cantidad.ToString());
+                    lstViewStock.Items.Add(item);
+                }
+            }
+            else
+            {
+              
+                lstViewStock.Items.Add(new ListViewItem(" "));
+            }
+
+            lstViewStock.View = View.Details; 
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -57,16 +99,22 @@ namespace pryClase1_PetShop
         }
 
 
-        public void refrescarGrilla()
+        public void refrescar()
         {
-            string nombre = txtBarraBusqueda.Text.Trim();
-            string categoria = cmbCategoria.Text.Trim();
+           
+            string nombre = txtBarraBusqueda.Text;
+            string categoria = cmbCategoria.Text;
 
             productosFiltrados = reposicion.obtenerProductoFiltrado(nombre, categoria);
 
             dgvStockProductos.DataSource = null;
             dgvStockProductos.DataSource = productosFiltrados;
+
+  
+           
         }
+
+      
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
@@ -85,7 +133,7 @@ namespace pryClase1_PetShop
                     {
                         MessageBox.Show("Producto eliminado correctamente");
 
-                        refrescarGrilla();
+                        refrescar();
 
                     }
                     else
@@ -122,7 +170,7 @@ namespace pryClase1_PetShop
                 frmModificacionProducto formModificado = new frmModificacionProducto(productoSeleccionado);
                 if (formModificado.ShowDialog() == DialogResult.OK)
                 {
-                    refrescarGrilla(); 
+                    refrescar(); 
                 }
             }
             else

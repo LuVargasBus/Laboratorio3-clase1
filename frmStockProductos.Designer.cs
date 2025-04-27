@@ -38,6 +38,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
+            this.lblStock = new System.Windows.Forms.Label();
+            this.lstViewStock = new System.Windows.Forms.ListView();
+            this.Producto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Cantidad = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dgvStockProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,11 +93,13 @@
             this.txtBarraBusqueda.Location = new System.Drawing.Point(53, 88);
             this.txtBarraBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBarraBusqueda.Name = "txtBarraBusqueda";
-            this.txtBarraBusqueda.Size = new System.Drawing.Size(468, 22);
+            this.txtBarraBusqueda.Size = new System.Drawing.Size(481, 22);
             this.txtBarraBusqueda.TabIndex = 4;
             // 
             // cmbCategoria
             // 
+            this.cmbCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCategoria.Enabled = false;
             this.cmbCategoria.FormattingEnabled = true;
             this.cmbCategoria.Items.AddRange(new object[] {
             "Alimento",
@@ -105,7 +111,7 @@
             this.cmbCategoria.Location = new System.Drawing.Point(53, 185);
             this.cmbCategoria.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCategoria.Name = "cmbCategoria";
-            this.cmbCategoria.Size = new System.Drawing.Size(468, 24);
+            this.cmbCategoria.Size = new System.Drawing.Size(481, 24);
             this.cmbCategoria.TabIndex = 5;
             // 
             // label1
@@ -148,11 +154,34 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
+            // lblStock
+            // 
+            this.lblStock.AutoSize = true;
+            this.lblStock.Location = new System.Drawing.Point(575, 39);
+            this.lblStock.Name = "lblStock";
+            this.lblStock.Size = new System.Drawing.Size(158, 16);
+            this.lblStock.TabIndex = 11;
+            this.lblStock.Text = "Productos con bajo stock";
+            // 
+            // lstViewStock
+            // 
+            this.lstViewStock.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Producto,
+            this.Cantidad});
+            this.lstViewStock.HideSelection = false;
+            this.lstViewStock.Location = new System.Drawing.Point(578, 88);
+            this.lstViewStock.Name = "lstViewStock";
+            this.lstViewStock.Size = new System.Drawing.Size(367, 193);
+            this.lstViewStock.TabIndex = 12;
+            this.lstViewStock.UseCompatibleStateImageBehavior = false;
+            // 
             // frmStockActual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 667);
+            this.ClientSize = new System.Drawing.Size(988, 667);
+            this.Controls.Add(this.lstViewStock);
+            this.Controls.Add(this.lblStock);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -185,5 +214,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label lblStock;
+        private System.Windows.Forms.ListView lstViewStock;
+        private System.Windows.Forms.ColumnHeader Producto;
+        private System.Windows.Forms.ColumnHeader Cantidad;
     }
 }

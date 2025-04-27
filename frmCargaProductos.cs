@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +21,11 @@ namespace pryClase1_PetShop
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+          
         }
 
+       
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try

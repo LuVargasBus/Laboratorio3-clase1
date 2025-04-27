@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
+using System.Net.Http.Headers;
 
 namespace pryClase1_PetShop
 {
@@ -60,6 +62,7 @@ namespace pryClase1_PetShop
             }
         }
 
+     
         public List<clsProducto> obtenerProductoFiltrado(string nombre = null, string categoria = null)
         {
                 List<clsProducto> listaProductosFiltrados = new List<clsProducto>();
@@ -154,6 +157,21 @@ namespace pryClase1_PetShop
                     return filasAfectadas > 0;
                 }
             }
+        }
+
+        public List<clsProducto> controlStock(List<clsProducto> productos)
+        {
+            List<clsProducto> listaProductosSinStock = new List<clsProducto>();
+
+            foreach (clsProducto producto in productos)
+            {
+                if (producto.Cantidad <= 1)
+                {
+                    listaProductosSinStock.Add(producto);
+                }
+            }
+
+            return listaProductosSinStock;
         }
     }
 }
