@@ -32,6 +32,26 @@ namespace pryClase1_PetShop
             }
         }
 
+        public bool VerificarCodigoUnico(int Codigo)
+        { 
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                conn.Open ();
+                string query = "SELECT 1 FROM Productos WHERE  Codigo = @codigo ";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Codigo", Codigo);
+
+                    
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        
+                        return reader.HasRows;
+                    }
+                }
+            }
+        }
+
         public List<clsProducto> obtenerTodosLosProductos()
         {
 
@@ -61,6 +81,7 @@ namespace pryClase1_PetShop
                 return listaProductos;
             }
         }
+
 
      
         public List<clsProducto> obtenerProductoFiltrado(string nombre = null, string categoria = null)

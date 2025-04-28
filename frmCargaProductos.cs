@@ -14,6 +14,7 @@ namespace pryClase1_PetShop
     public partial class frmCargaProductos : Form
     {
         private clsReposicion reposicion = new clsReposicion();
+     
         public frmCargaProductos()
         {
             InitializeComponent();
@@ -25,22 +26,35 @@ namespace pryClase1_PetShop
           
         }
 
-       
+
+
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                clsProducto nuevoProducto = new clsProducto
+                int codigoProducto = Convert.ToInt32(txtCodigo.Text);
+
+                if (reposicion.VerificarCodigoUnico(codigoProducto))
                 {
-                    Nombre = txtNombreProducto.Text,
-                    Categoria = cmbCategoriaProductos.Text,
-                    Codigo = Convert.ToInt32(txtCodigo.Text),
-                    Descripcion = txtDescripcion.Text,
-                    Precio = Convert.ToInt32(txtPrecio.Text),
-                    Cantidad = Convert.ToInt32(txtCantidad.Text),
-                };
-                reposicion.GuardarProducto(nuevoProducto);
-                MessageBox.Show("Producto guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El código de producto ya existe");
+                     return;
+                }
+                
+                
+                    clsProducto nuevoProducto = new clsProducto
+                    {
+                        Nombre = txtNombreProducto.Text,
+                        Categoria = cmbCategoriaProductos.Text,
+                        Codigo = Convert.ToInt32(txtCodigo.Text),
+                        Descripcion = txtDescripcion.Text,
+                        Precio = Convert.ToInt32(txtPrecio.Text),
+                        Cantidad = Convert.ToInt32(txtCantidad.Text),
+                    };
+                    reposicion.GuardarProducto(nuevoProducto);
+                    MessageBox.Show("Producto guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    limpiar_formulario();
+                
+
             }
 
             catch (Exception ex)
@@ -56,6 +70,16 @@ namespace pryClase1_PetShop
             verProductos.Show();
         }
 
+        public void limpiar_formulario()
+        {
+            txtNombreProducto.Text = " ";
+            cmbCategoriaProductos.SelectedItem = ""; 
+            txtCantidad.Text = " ";
+            txtCodigo.Text = " ";
+            txtDescripcion.Text = " ";
+            txtPrecio.Text = " ";
+
+        }
         
     }
 }

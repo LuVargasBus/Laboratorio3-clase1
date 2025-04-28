@@ -26,10 +26,7 @@ namespace pryClase1_PetShop
           
             productosDisponibles = reposicion.obtenerTodosLosProductos();
             productosFiltrados = reposicion.obtenerProductoFiltrado();
-            
-           
-           
-
+          
         }
 
 
