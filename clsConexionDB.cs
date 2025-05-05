@@ -27,12 +27,12 @@ namespace pryClase1_PetShop
                 if (conn.State != System.Data.ConnectionState.Open)
                 {
                     conn.Open();
-                    MessageBox.Show("✅ Conexión exitosa a la base de datos.");
+                    MessageBox.Show("Conexión exitosa a la base de datos.");
 
                 }
             }
             catch (Exception ex) {
-                MessageBox.Show("❌ Error al conectar: " + ex.Message);
+                MessageBox.Show("Error al conectar: " + ex.Message);
 
             }
         }

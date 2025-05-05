@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Windows.Forms;
+using System.Net.Http.Headers;
 
 namespace pryClase1_PetShop
 {
@@ -26,6 +28,26 @@ namespace pryClase1_PetShop
                     cmd.Parameters.AddWithValue("@precio", producto.Precio);
                     cmd.Parameters.AddWithValue("@cantidad", producto.Cantidad);
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public bool VerificarCodigoUnico(int Codigo)
+        { 
+            using (SqlConnection conn = conexion.ObtenerConexion())
+            {
+                conn.Open ();
+                string query = "SELECT 1 FROM Productos WHERE  Codigo = @codigo ";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Codigo", Codigo);
+
+                    
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        
+                        return reader.HasRows;
+                    }
                 }
             }
         }
@@ -60,6 +82,8 @@ namespace pryClase1_PetShop
             }
         }
 
+
+     
         public List<clsProducto> obtenerProductoFiltrado(string nombre = null, string categoria = null)
         {
                 List<clsProducto> listaProductosFiltrados = new List<clsProducto>();
@@ -154,6 +178,21 @@ namespace pryClase1_PetShop
                     return filasAfectadas > 0;
                 }
             }
+        }
+
+        public List<clsProducto> controlStock(List<clsProducto> productos)
+        {
+            List<clsProducto> listaProductosSinStock = new List<clsProducto>();
+
+            foreach (clsProducto producto in productos)
+            {
+                if (producto.Cantidad <= 1)
+                {
+                    listaProductosSinStock.Add(producto);
+                }
+            }
+
+            return listaProductosSinStock;
         }
     }
 }
